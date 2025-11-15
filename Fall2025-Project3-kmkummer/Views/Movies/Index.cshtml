@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Fall2025_Project3_kmkummer.Models.Movie>
+
+@{
+    ViewData["Title"] = "Movies";
+}
+
+
+<h1>Movies</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table id="MovieTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Poster)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IMDB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+                <td>
+                    @if (item.Poster != null && item.Poster.Length > 0)
+                    {
+                        <img src="@Url.Action("Poster", "Movies", new { id = item.Id })"
+                             alt="Photo of @item.Title"
+                             style="max-width:100px; max-height:150px; object-fit:cover;" />
+                    }
+                    else
+                    {
+                        <span><em>No photo uploaded.</em></span>
+                    }
+                </td>
+                <td>
+                    @{
+                        var link = item.IMDB;
+                        <a href="@link" target="_blank" rel="noopener">@link</a>
+                    }
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@section Scripts {
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.bootstrap5.min.css"
+          integrity="sha512-L8i3WWTzIHDoqFcF6YW/Fr0iC8IRlN64b/YwPlPIf8o6VLE2re+7442BbEGFIyWvmqYqK6UvDJpPZxTn+rN/mQ=="
+          crossorigin="anonymous">
+
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.min.js"
+            integrity="sha512-aDicMCy0pnN7hqhfSgvagdrS85SkNmmqWTkcQaGzlvW7UMWcCZ8WVYz7PLICHB6DXDprRlzuu4Od4MyXQ2spQw=="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.bootstrap5.min.js"
+            integrity="sha512-Cwi0jz7fz7mrX990DlJ1+rmiH/D9/rjfOoEex8C9qrPRDDqwMPdWV7pJFKzhM10gAAPlufZcWhfMuPN699Ej0w=="
+            crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $('#MovieTable').DataTable({
+                pageLength: 10,
+                searching: true
+            });
+        });
+    </script>
+}

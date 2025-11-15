@@ -1,0 +1,118 @@
+﻿@model Fall2025_Project3_kmkummer.Models.ViewModels.MovieDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Movie</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Movie.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Movie.Title)
+        </dd>
+        <dt class="col-sm-2">
+            Poster
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Movie.Poster != null && Model.Movie.Poster.Length > 0)
+            {
+                <img src="@Url.Action("Poster", "Movies", new { id = Model.Movie.Id })"
+                     alt="Photo of @Model.Movie.Title"
+                     style="max-width:200px; max-height:300px; object-fit:cover;" />
+            }
+            else
+            {
+                <span><em>No photo uploaded.</em></span>
+            }
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Movie.IMDB)
+        </dt>
+        <dd class = "col-sm-10">
+            @{
+                var imdb = Model.Movie.IMDB;
+                <a href="@imdb" target="_blank" rel="noopener">@imdb</a>
+            }
+        </dd>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Movie.Year)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Movie.Year)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Movie.Genre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Movie.Genre)
+    </dl>
+</div>
+
+    <h3>Cast</h3>
+    <ul>
+        @foreach (var ma in Model.Movie.MovieActors)
+        {
+            <li>
+                <a asp-controller="Actors" asp-action="Details" asp-route-id="@ma.Actor.Id">
+                    @ma.Actor.Name
+                </a>
+            </li>
+        }
+    </ul>
+
+<h3 class="mt-4">Overall Sentiment: (@Model.AverageSentiment.ToString("0.000"))</h3>
+
+@if (Model.AIReviews.Count > 0)
+{
+    <table id="MovieTable" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Review</th>
+                <th>Sentiment</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.AIReviews.Count; i++)
+            {
+                <tr>
+                    <td>@Model.AIReviews[i]</td>
+                    <td>@(i<Model.ReviewSentiments.Count? Model.ReviewSentiments[i].ToString("0.000") : "")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Movie?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.bootstrap5.min.css"
+          integrity="sha512-L8i3WWTzIHDoqFcF6YW/Fr0iC8IRlN64b/YwPlPIf8o6VLE2re+7442BbEGFIyWvmqYqK6UvDJpPZxTn+rN/mQ=="
+          crossorigin="anonymous">
+
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.min.js"
+            integrity="sha512-aDicMCy0pnN7hqhfSgvagdrS85SkNmmqWTkcQaGzlvW7UMWcCZ8WVYz7PLICHB6DXDprRlzuu4Od4MyXQ2spQw=="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.bootstrap5.min.js"
+            integrity="sha512-Cwi0jz7fz7mrX990DlJ1+rmiH/D9/rjfOoEex8C9qrPRDDqwMPdWV7pJFKzhM10gAAPlufZcWhfMuPN699Ej0w=="
+            crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $('#MovieTable').DataTable({
+                pageLength: 10,
+                searching: true
+            });
+        });
+    </script>
+}

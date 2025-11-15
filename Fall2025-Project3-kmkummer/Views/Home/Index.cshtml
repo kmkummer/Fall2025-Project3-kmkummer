@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 id="styling" class="display-4">Welcome To Kyle's Movie and Actor Database</h1>
+
+    @*<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
+
+    <p class = "lead mt-3">This site lets you create, view, edit and delete movies and actors however you like.
+        Create movie-actor relationships to tie actors and movies to each other. 
+        In the details page of each movie you can see a list the actors in the movie, 
+        as well as a table of AI-generated reviews and sentiment analysis. 
+        In the details page of each actor you can see a list the movies the actor is in, as well as a table of AI-generated tweets and sentiment analysis.
+        The reviews, tweets and sentiment analysis are powered by Azure OpenAI and VaderSharp2.
+    </p>
+    <p class ="lead mt-3">
+        Use the navigation bar above to:
+    </p>
+
+    <ul id ="styling" class="text-start mx-auto" style="max-width: 600px; font-size: 1.1rem;">
+        <li>Browse and manage <strong>movies</strong></li>
+        <li>Browse and manage <strong>actors</strong></li>
+        <li>Create relationships between actors and movies</li>
+        <li>View AI-generated reviews and tweets for actors and movies</li>
+        <li>See sentiment analysis results for all generated content</li>
+    </ul>
+    <p class="lead mt-3">Select a section from the Navigation bar to begin!</p>
+
+</div>

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Fall2025_Project3_kmkummer.Models.MovieActor>
+
+@{
+    ViewData["Title"] = "Movie Actors";
+}
+
+<h1>Movie Actors</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table id ="MovieActorTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Movie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Actor)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Movie.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Actor.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@section Scripts {
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.bootstrap5.min.css"
+          integrity="sha512-L8i3WWTzIHDoqFcF6YW/Fr0iC8IRlN64b/YwPlPIf8o6VLE2re+7442BbEGFIyWvmqYqK6UvDJpPZxTn+rN/mQ=="
+          crossorigin="anonymous">
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.min.js"
+            integrity="sha512-aDicMCy0pnN7hqhfSgvagdrS85SkNmmqWTkcQaGzlvW7UMWcCZ8WVYz7PLICHB6DXDprRlzuu4Od4MyXQ2spQw=="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.bootstrap5.min.js"
+            integrity="sha512-Cwi0jz7fz7mrX990DlJ1+rmiH/D9/rjfOoEex8C9qrPRDDqwMPdWV7pJFKzhM10gAAPlufZcWhfMuPN699Ej0w=="
+            crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $('#MovieActorTable').DataTable({
+                pageLength: 10,
+                searching: true
+            });
+        });
+    </script>
+}
