@@ -4,6 +4,7 @@ using Fall2025_Project3_kmkummer.Data;
 using Fall2025_Project3_kmkummer.Models;
 using Fall2025_Project3_kmkummer.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -159,6 +160,7 @@ namespace Fall2025_Project3_kmkummer.Controllers
         }
 
         // GET: Actors/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
