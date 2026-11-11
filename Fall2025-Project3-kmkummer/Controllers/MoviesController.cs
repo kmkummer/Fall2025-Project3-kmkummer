@@ -22,6 +22,7 @@ using System.Text.Json.Serialization.Metadata;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using VaderSharp2;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Fall2025_Project3_kmkummer.Controllers
 {
@@ -160,6 +161,7 @@ namespace Fall2025_Project3_kmkummer.Controllers
         }
 
         // GET: Movies/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -178,6 +180,7 @@ namespace Fall2025_Project3_kmkummer.Controllers
         // POST: Movies/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,IMDB,Genre,Year")] Movie movie, IFormFile? PosterFile)
@@ -239,6 +242,7 @@ namespace Fall2025_Project3_kmkummer.Controllers
         }
 
         // POST: Movies/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

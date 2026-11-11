@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Fall2025_Project3_kmkummer.Data;
 using Fall2025_Project3_kmkummer.Models;
 using Fall2025_Project3_kmkummer.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Fall2025_Project3_kmkummer.Controllers
 {
@@ -120,6 +121,7 @@ namespace Fall2025_Project3_kmkummer.Controllers
         }
 
         // GET: MovieActors/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -162,6 +164,7 @@ namespace Fall2025_Project3_kmkummer.Controllers
         }
 
         // POST: MovieActors/Edit/5
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, MovieActorEditViewModel vm)
