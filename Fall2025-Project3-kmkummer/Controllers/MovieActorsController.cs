@@ -261,6 +261,7 @@ namespace Fall2025_Project3_kmkummer.Controllers
         // POST: MovieActors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var movieActor = await _context.MovieActors.FindAsync(id);
